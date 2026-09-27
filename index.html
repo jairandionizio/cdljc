@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ACE — Associação Comercial e Empresarial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14213D; --ink-2:#1E2F55;
+    --paper:#F7F5F0; --paper-2:#EFEAE0;
+    --brass:#B08D57; --brass-dark:#8C6D3F;
+    --line:#D9D3C7; --text:#24262B; --text-soft:#5B5A54;
+    --card-bg:#FFFFFF;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#0F1626; --ink-2:#16213D;
+      --paper:#15140F; --paper-2:#1C1A14;
+      --brass:#C9A26A; --brass-dark:#B08D57;
+      --line:#33302A; --text:#EDEAE2; --text-soft:#B5B1A6;
+      --card-bg:#1C1A14;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#0F1626; --ink-2:#16213D;
+    --paper:#15140F; --paper-2:#1C1A14;
+    --brass:#C9A26A; --brass-dark:#B08D57;
+    --line:#33302A; --text:#EDEAE2; --text-soft:#B5B1A6;
+    --card-bg:#1C1A14;
+  }
+  html{scroll-padding-top:env(safe-area-inset-top,0px); scroll-behavior:smooth;}
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--paper); color:var(--text);
+    font-family:'Inter',system-ui,sans-serif; line-height:1.55;
+  }
+  h1,h2,h3,.serif{font-family:'Source Serif 4',Georgia,serif;}
+  a{color:inherit;}
+  img,svg{max-width:100%;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+  .overflow-x{overflow-x:auto;}
+
+  /* top bar */
+  .topbar{
+    background:var(--ink); color:#EDE9DD; font-size:13.5px;
+    padding-top:calc(8px + env(safe-area-inset-top,0px));
+  }
+  .topbar .wrap{display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; gap:12px; flex-wrap:wrap;}
+  .topbar a{text-decoration:none; opacity:.85;}
+  .topbar a:hover{opacity:1;}
+  .topbar .assoc-btn{border:1px solid var(--brass); color:var(--brass); padding:4px 12px; border-radius:2px;}
+
+  /* header/nav */
+  header{
+    position:sticky; top:0; z-index:20; background:var(--paper);
+    border-bottom:1px solid var(--line);
+    padding-top:env(safe-area-inset-top,0px);
+  }
+  nav.wrap{display:flex; align-items:center; justify-content:space-between; padding:16px 24px; gap:24px;}
+  .logo{display:flex; align-items:baseline; gap:8px;}
+  .logo .mark{
+    width:34px; height:34px; border-radius:50%; background:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--brass); font-family:'Source Serif 4',serif; font-weight:700; font-size:16px;
+  }
+  .logo .name{font-family:'Source Serif 4',serif; font-weight:600; font-size:20px; letter-spacing:.2px;}
+  .logo .name small{display:block; font-family:'Inter',sans-serif; font-weight:400; font-size:11.5px; color:var(--text-soft);}
+  .navlinks{display:flex; gap:26px; font-size:14.5px;}
+  .navlinks a{text-decoration:none; color:var(--text);}
+  .navlinks a:hover{color:var(--brass-dark);}
+  .cta{
+    background:var(--brass); color:#fff; text-decoration:none; padding:10px 18px;
+    border-radius:2px; font-size:14px; font-weight:500; white-space:nowrap;
+  }
+  .cta:hover{background:var(--brass-dark);}
+  .navtoggle{display:none;}
+
+  /* hero */
+  .hero{
+    background:linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%);
+    color:#F3F0E6; padding:72px 0 90px; position:relative; overflow:hidden;
+  }
+  .hero .wrap{position:relative; z-index:2;}
+  .hero .eyebrow{color:var(--brass); font-size:14.5px; margin-bottom:14px;}
+  .hero h1{font-size:clamp(32px,5vw,52px); font-weight:600; line-height:1.12; max-width:14ch; margin:0 0 20px;}
+  .hero p{font-size:17px; color:#D9D5C7; max-width:46ch; margin:0 0 30px;}
+  .hero .actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .hero .ghost{
+    border:1px solid #6C7690; color:#EDE9DD; text-decoration:none; padding:10px 20px;
+    border-radius:2px; font-size:14.5px;
+  }
+  .hero .stats{display:flex; gap:44px; margin-top:56px; flex-wrap:wrap;}
+  .hero .stat b{display:block; font-family:'Source Serif 4',serif; font-size:30px; color:var(--brass);}
+  .hero .stat span{font-size:13px; color:#C9C5B8;}
+  .hero-orn{
+    position:absolute; right:-60px; top:-40px; width:340px; height:340px; z-index:1;
+    border:1px solid rgba(176,141,87,.35); border-radius:50%;
+  }
+  .hero-orn::before{
+    content:""; position:absolute; inset:34px; border:1px solid rgba(176,141,87,.25); border-radius:50%;
+  }
+
+  section{padding:64px 0;}
+  .section-head{max-width:60ch; margin-bottom:36px;}
+  .section-head .kicker{color:var(--brass-dark); font-size:14px; margin-bottom:8px;}
+  .section-head h2{font-size:28px; font-weight:600; margin:0 0 10px;}
+  .section-head p{color:var(--text-soft); margin:0; font-size:15.5px;}
+
+  /* pillars */
+  .pillars{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .pillar{background:var(--card-bg); padding:32px 28px;}
+  .pillar .glyph{width:36px; height:36px; margin-bottom:18px;}
+  .pillar h3{font-size:18px; margin:0 0 10px; font-weight:600;}
+  .pillar p{font-size:14.5px; color:var(--text-soft); margin:0 0 14px;}
+  .pillar a{font-size:13.5px; color:var(--brass-dark); text-decoration:none; border-bottom:1px solid var(--brass-dark);}
+
+  /* news list */
+  .news-list{border-top:1px solid var(--line);}
+  .news-item{
+    display:grid; grid-template-columns:90px 1fr auto; gap:20px; align-items:baseline;
+    padding:20px 0; border-bottom:1px solid var(--line);
+  }
+  .news-item .date{font-size:13px; color:var(--text-soft);}
+  .news-item .tag{font-size:12.5px; color:var(--brass-dark); display:block; margin-bottom:4px;}
+  .news-item h3{font-size:16.5px; margin:0; font-weight:600;}
+  .news-item a.read{font-size:13.5px; text-decoration:none; color:var(--brass-dark); white-space:nowrap;}
+
+  /* about */
+  .about{background:var(--paper-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .about .grid{display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:start;}
+  .about h2{font-size:26px; font-weight:600; margin:0 0 16px;}
+  .about p{color:var(--text-soft); font-size:15px; margin:0 0 14px;}
+  .founding{
+    border:1px solid var(--line); background:var(--card-bg); padding:26px;
+  }
+  .founding b{display:block; font-family:'Source Serif 4',serif; font-size:34px; color:var(--brass-dark);}
+  .founding span{font-size:13.5px; color:var(--text-soft);}
+  .founding .row{display:flex; justify-content:space-between; padding:12px 0; border-top:1px solid var(--line);}
+  .founding .row:first-of-type{border-top:none;}
+
+  /* testimonials */
+  .quotes{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line);}
+  .quote{background:var(--card-bg); padding:26px 28px;}
+  .quote p{font-size:15px; margin:0 0 14px; font-family:'Source Serif 4',serif; font-style:italic;}
+  .quote footer{font-size:13px; color:var(--text-soft);}
+
+  /* membership */
+  .membership{background:var(--ink); color:#EDE9DD;}
+  .membership .grid{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;}
+  .membership h2{font-size:26px; font-weight:600; margin:0 0 14px; color:#fff;}
+  .membership p{color:#C9C5B8; font-size:15px; margin:0 0 24px;}
+  .benefits{list-style:none; margin:0; padding:0; display:grid; gap:14px;}
+  .benefits li{display:flex; gap:12px; font-size:14.5px; color:#E7E3D6;}
+  .benefits li .dot{width:6px; height:6px; border-radius:50%; background:var(--brass); margin-top:8px; flex:none;}
+  .membership .cta{margin-top:8px; display:inline-block;}
+
+  /* footer */
+  footer.site{padding:52px 0 40px; border-top:1px solid var(--line);}
+  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; font-size:14px;}
+  .foot-grid h4{font-size:13.5px; margin:0 0 14px; color:var(--text-soft); font-weight:600;}
+  .foot-grid a{display:block; text-decoration:none; color:var(--text); margin-bottom:9px;}
+  .foot-grid a:hover{color:var(--brass-dark);}
+  .foot-bottom{
+    display:flex; justify-content:space-between; align-items:center; margin-top:44px;
+    padding-top:20px; border-top:1px solid var(--line); font-size:13px; color:var(--text-soft); flex-wrap:wrap; gap:10px;
+  }
+  .social a{margin-left:14px; text-decoration:none; color:var(--text-soft);}
+  .social a:hover{color:var(--brass-dark);}
+
+  /* podcast / rádio */
+  .podcast{background:var(--paper-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .podcast .grid{display:grid; grid-template-columns:.9fr 1.1fr; gap:48px; align-items:center;}
+  .podcast h2{font-size:26px; font-weight:600; margin:0 0 14px;}
+  .podcast p{color:var(--text-soft); font-size:15px; margin:0 0 20px;}
+  .live-badge{
+    display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--brass-dark);
+    border:1px solid var(--brass); padding:5px 12px; border-radius:2px; margin-bottom:18px;
+  }
+  .live-badge .pulse{width:7px; height:7px; border-radius:50%; background:var(--brass); flex:none;}
+  .player{
+    background:var(--card-bg); border:1px solid var(--line); padding:22px 24px;
+  }
+  .player .row{display:flex; align-items:center; gap:16px;}
+  .player .play{
+    width:46px; height:46px; border-radius:50%; background:var(--ink); flex:none;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+  }
+  .player .play svg{fill:var(--brass);}
+  .player .meta b{display:block; font-size:15px;}
+  .player .meta span{font-size:13px; color:var(--text-soft);}
+  .episode-list{margin-top:20px; padding-top:16px; border-top:1px solid var(--line); display:grid; gap:12px;}
+  .episode-list .ep{display:flex; justify-content:space-between; font-size:13.5px; gap:12px;}
+  .episode-list .ep span:first-child{color:var(--text);}
+  .episode-list .ep span:last-child{color:var(--text-soft); white-space:nowrap;}
+
+  /* whatsapp floating button */
+  .wa-float{
+    position:fixed; right:20px; bottom:calc(20px + env(safe-area-inset-bottom,0px)); z-index:30;
+    width:58px; height:58px; border-radius:50%; background:#25D366;
+    display:flex; align-items:center; justify-content:center; text-decoration:none;
+    box-shadow:0 6px 18px rgba(0,0,0,.22);
+  }
+  .wa-float svg{width:30px; height:30px;}
+  .wa-float:hover{background:#20bd5a;}
+
+  @media (max-width:820px){
+    .podcast .grid{grid-template-columns:1fr;}
+    .pillars{grid-template-columns:1fr;}
+    .about .grid, .membership .grid, .quotes{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+    .navlinks{display:none;}
+    .news-item{grid-template-columns:1fr; gap:4px;}
+    .news-item .read{justify-self:start;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div>Rua Central, 1111 — Centro, [Sua Cidade]/[UF] &nbsp;·&nbsp; (00) 0000-0000</div>
+    <div style="display:flex; gap:18px; align-items:center;">
+      <a href="#">Área do Associado</a>
+      <a href="#" class="assoc-btn">Associe-se</a>
+    </div>
+  </div>
+</div>
+
+<header>
+  <nav class="wrap">
+    <a href="#" class="logo" style="text-decoration:none; color:inherit;">
+      <span class="mark">AC</span>
+      <span class="name">ACE<small>Associação Comercial e Empresarial</small></span>
+    </a>
+    <div class="navlinks">
+      <a href="#sobre">Sobre Nós</a>
+      <a href="#solucoes">Soluções</a>
+      <a href="#eventos">Eventos</a>
+      <a href="#noticias">Notícias</a>
+      <a href="#podcast">Podcast &amp; Rádio</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <a href="#contato" class="cta">Fale Conosco</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-orn"></div>
+  <div class="wrap">
+    <div class="eyebrow">Fundada em 19XX — [Sua Cidade]</div>
+    <h1>Representamos o comércio e a indústria em cada fase do seu negócio</h1>
+    <p>Networking, capacitação e representatividade para empresas de todos os portes que fazem a economia local acontecer.</p>
+    <div class="actions">
+      <a href="#" class="cta">Seja um associado</a>
+      <a href="#solucoes" class="ghost">Conheça nossas soluções</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>1.200+</b><span>empresas associadas</span></div>
+      <div class="stat"><b>100+</b><span>anos de atuação</span></div>
+      <div class="stat"><b>30+</b><span>parcerias e serviços</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="solucoes">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">O que oferecemos</div>
+      <h2>Três pilares de atuação</h2>
+      <p>Organizamos nossos serviços em torno do que mais importa para quem empreende na região.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <svg class="glyph" viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="none" stroke="#B08D57" stroke-width="1.6"/><path d="M18 10v16M13 14h10M13 22h10" stroke="#B08D57" stroke-width="1.6" fill="none"/></svg>
+        <h3>Redução de custos</h3>
+        <p>Convênios e parcerias que reduzem despesas operacionais e financeiras do associado.</p>
+        <a href="#">Saiba mais</a>
+      </div>
+      <div class="pillar">
+        <svg class="glyph" viewBox="0 0 36 36"><rect x="6" y="9" width="24" height="18" rx="1" fill="none" stroke="#B08D57" stroke-width="1.6"/><path d="M6 15h24" stroke="#B08D57" stroke-width="1.6"/></svg>
+        <h3>Educação empreendedora</h3>
+        <p>Cursos, workshops e consultorias voltados ao crescimento contínuo do negócio.</p>
+        <a href="#">Saiba mais</a>
+      </div>
+      <div class="pillar">
+        <svg class="glyph" viewBox="0 0 36 36"><circle cx="18" cy="18" r="3.2" fill="#B08D57"/><circle cx="18" cy="18" r="12" fill="none" stroke="#B08D57" stroke-width="1.6"/></svg>
+        <h3>Oportunidades de negócio</h3>
+        <p>Rodadas de negócios e eventos que conectam associados a novos clientes e parceiros.</p>
+        <a href="#">Saiba mais</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="noticias">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Fique por dentro</div>
+      <h2>Notícias do comércio local</h2>
+    </div>
+    <div class="news-list">
+      <div class="news-item">
+        <span class="date">24 set</span>
+        <div><span class="tag">Notícias</span><h3>Semana do comércio local reúne recorde de expositores</h3></div>
+        <a href="#" class="read">Leia mais</a>
+      </div>
+      <div class="news-item">
+        <span class="date">18 set</span>
+        <div><span class="tag">Notícias</span><h3>Empreendedores com CNPJ atingem novo recorde na região</h3></div>
+        <a href="#" class="read">Leia mais</a>
+      </div>
+      <div class="news-item">
+        <span class="date">09 set</span>
+        <div><span class="tag">Blog</span><h3>Reforma tributária: o que muda para pequenas empresas</h3></div>
+        <a href="#" class="read">Leia mais</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="sobre">
+  <div class="wrap grid">
+    <div>
+      <h2>Conheça a ACE</h2>
+      <p>Tradicional instituição empresarial de [Sua Cidade], a ACE apoia o desenvolvimento do empreendedor com produtos e serviços que auxiliam o dia a dia da empresa e de quem a comanda.</p>
+      <p>Entidade sem fins lucrativos, trabalhamos para fortalecer a região como polo comercial e industrial, sendo a principal representante do comércio, indústria e serviços junto à sociedade e ao poder público.</p>
+      <p>Defendemos o empreendedorismo e a iniciativa privada como motores de desenvolvimento econômico.</p>
+    </div>
+    <div class="founding">
+      <div class="row" style="border-top:none;"><span><b>1920</b><span>ano de fundação</span></span></div>
+      <div class="row"><span>Empresas associadas</span><span>1.200+</span></div>
+      <div class="row"><span>Setores representados</span><span>18</span></div>
+      <div class="row"><span>Eventos por ano</span><span>40+</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="eventos">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Agenda</div>
+      <h2>Próximos eventos</h2>
+    </div>
+    <div class="news-list">
+      <div class="news-item">
+        <span class="date">07 out</span>
+        <div><span class="tag">Workshop</span><h3>Capacitação em Gestão para Pequenas Empresas</h3></div>
+        <a href="#" class="read">Inscreva-se</a>
+      </div>
+      <div class="news-item">
+        <span class="date">21 out</span>
+        <div><span class="tag">Networking</span><h3>Rodada de Negócios ACE — edição de outubro</h3></div>
+        <a href="#" class="read">Inscreva-se</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Depoimentos</div>
+      <h2>O que dizem os associados</h2>
+    </div>
+    <div class="quotes">
+      <div class="quote">
+        <p>"Sempre que preciso, sou atendida quase que imediatamente."</p>
+        <footer>Erica — associada</footer>
+      </div>
+      <div class="quote">
+        <p>"Entrei há alguns meses e estou bastante satisfeito com os resultados."</p>
+        <footer>MM Design — associado</footer>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="podcast" id="podcast">
+  <div class="wrap grid">
+    <div>
+      <div class="live-badge"><span class="pulse"></span> No ar agora</div>
+      <h2>Podcast &amp; Rádio ACE</h2>
+      <p>Entrevistas com associados, análises de mercado e a agenda do comércio local, toda semana em áudio.</p>
+      <a href="#" class="cta">Ouvir ao vivo</a>
+    </div>
+    <div class="player">
+      <div class="row">
+        <div class="play">
+          <svg width="16" height="16" viewBox="0 0 16 16"><path d="M4 2l10 6-10 6V2z"/></svg>
+        </div>
+        <div class="meta">
+          <b>EP. 48 — Reforma tributária na prática</b>
+          <span>Rádio ACE · 34 min</span>
+        </div>
+      </div>
+      <div class="episode-list">
+        <div class="ep"><span>EP. 47 — Crédito para pequenas empresas</span><span>28 min</span></div>
+        <div class="ep"><span>EP. 46 — Bastidores da Rodada de Negócios</span><span>31 min</span></div>
+        <div class="ep"><span>EP. 45 — Marketing digital para o comércio local</span><span>26 min</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="membership">
+  <div class="wrap grid">
+    <div>
+      <h2>Motivos para associar sua empresa</h2>
+      <p>Faça parte de uma rede que já representa o comércio e a indústria da região há mais de um século.</p>
+      <a href="#" class="cta">Seja um associado</a>
+    </div>
+    <ul class="benefits">
+      <li><span class="dot"></span>Networking estratégico em eventos e rodadas de negócios</li>
+      <li><span class="dot"></span>Capacitações e consultorias exclusivas</li>
+      <li><span class="dot"></span>Fortalecimento de marca em publicações e redes sociais</li>
+      <li><span class="dot"></span>Representatividade junto ao poder público</li>
+      <li><span class="dot"></span>Conteúdo sobre inovação e transformação digital</li>
+    </ul>
+  </div>
+</section>
+
+<footer class="site" id="contato">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>ACE — Associação Comercial e Empresarial</h4>
+        <p style="color:var(--text-soft); font-size:13.5px; max-width:32ch;">Rua Central, 1111, Centro, [Sua Cidade]/[UF] — CEP 00000-000<br>contato@ace.org.br · (00) 0000-0000</p>
+      </div>
+      <div>
+        <h4>Sobre Nós</h4>
+        <a href="#sobre">Conheça a ACE</a>
+        <a href="#">Diretoria</a>
+      </div>
+      <div>
+        <h4>Soluções</h4>
+        <a href="#solucoes">Networking</a>
+        <a href="#">Capacitações</a>
+        <a href="#">Certificado Digital</a>
+      </div>
+      <div>
+        <h4>Conteúdos</h4>
+        <a href="#noticias">Notícias</a>
+        <a href="#">Blog</a>
+        <a href="#eventos">Eventos</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 ACE — Associação Comercial e Empresarial</span>
+      <span class="social">
+        <a href="#">Instagram</a><a href="#">Facebook</a><a href="#">LinkedIn</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5500000000000?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 32 32"><path fill="#fff" d="M16.001 3C9.373 3 4 8.373 4 15c0 2.34.69 4.52 1.876 6.36L4 29l7.84-1.85A11.94 11.94 0 0 0 16.001 27C22.63 27 28 21.63 28 15S22.63 3 16.001 3zm0 21.6c-1.98 0-3.83-.55-5.41-1.5l-.39-.23-4.65 1.1 1.13-4.53-.25-.4A9.55 9.55 0 0 1 5.4 15c0-5.85 4.76-10.6 10.6-10.6S26.6 9.15 26.6 15 21.85 24.6 16.001 24.6zm5.79-7.93c-.32-.16-1.88-.93-2.17-1.03-.29-.11-.5-.16-.71.16-.21.32-.81 1.03-1 1.24-.18.21-.37.24-.68.08-.32-.16-1.34-.49-2.55-1.57-.94-.84-1.58-1.87-1.76-2.19-.18-.32-.02-.49.14-.65.14-.14.32-.37.48-.55.16-.18.21-.32.32-.53.11-.21.05-.4-.03-.55-.08-.16-.71-1.71-.97-2.34-.26-.61-.52-.53-.71-.54h-.6c-.21 0-.55.08-.84.4-.29.32-1.1 1.08-1.1 2.63s1.13 3.05 1.29 3.26c.16.21 2.23 3.4 5.4 4.77.75.32 1.34.52 1.8.66.76.24 1.44.21 1.99.13.61-.09 1.88-.77 2.14-1.51.27-.74.27-1.38.19-1.51-.08-.13-.29-.21-.61-.37z"/></svg>
+</a>
+
+</body>
+</html>
