@@ -349,6 +349,15 @@
     .topbar, header, #view-home, footer.site, .wa-float, .bf-strip, .bf-fab, .bf-modal, .bf-head, .bf-steps, .bf-card, .bf-acts{display:none!important;}
     body{background:#fff;}
   }
+
+  /* galeria */
+  .gal{background:var(--paper-2);}
+  .gal-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin-top:8px;}
+  .gal-item{margin:0; background:var(--card-bg); border:1px solid var(--line); border-radius:4px; overflow:hidden;}
+  .gal-item a{display:block;}
+  .gal-item img{display:block; width:100%; aspect-ratio:4/3; object-fit:cover; object-position:center 30%; background:var(--line);}
+  .gal-item figcaption{padding:10px 14px 12px; font-size:14px; color:var(--text-soft);}
+  .gal-item a:focus-visible{outline:3px solid var(--brass); outline-offset:-3px;}
 </style>
 </head>
 <body>
@@ -433,6 +442,46 @@
       <div class="bf-count"><b data-bf-days>–</b><span data-bf-label>dias para o sorteio</span></div>
       <a class="bf-btn" href="#black-friday">Gerar meu cupom</a>
       <a class="bf-link" href="https://www.cdljoaocamara.com.br" target="_blank" rel="noopener">Ler o regulamento</a>
+    </div>
+  </div>
+</section>
+
+<section id="fotos" class="gal">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Black Friday 2026</div>
+      <h2>Equipe CDL em campo</h2>
+      <p>Visitas aos comerciantes e preparação da campanha pelas ruas de João Câmara.</p>
+    </div>
+    <div class="gal-grid">
+      <figure class="gal-item">
+        <a href="fotos/F1.jpeg" target="_blank" rel="noopener"><img src="fotos/F1.jpeg" alt="Equipe da CDL reunida com os jovens que participam da ação de visitas" loading="lazy" width="640" height="480"></a>
+        <figcaption>Equipe da CDL em campo</figcaption>
+      </figure>
+      <figure class="gal-item">
+        <a href="fotos/F2.jpeg" target="_blank" rel="noopener"><img src="fotos/F2.jpeg" alt="Equipe da CDL em visita ao Adriano Auto Center" loading="lazy" width="640" height="480"></a>
+        <figcaption>Visita ao Adriano Auto Center</figcaption>
+      </figure>
+      <figure class="gal-item">
+        <a href="fotos/F3.jpeg" target="_blank" rel="noopener"><img src="fotos/F3.jpeg" alt="Equipe da CDL em visita à Ótica Venâncio" loading="lazy" width="640" height="480"></a>
+        <figcaption>Visita à Ótica Venâncio</figcaption>
+      </figure>
+      <figure class="gal-item">
+        <a href="fotos/F4.jpeg" target="_blank" rel="noopener"><img src="fotos/F4.jpeg" alt="Equipe da CDL ao lado do arco de balões pretos e amarelos da Black Friday" loading="lazy" width="640" height="480"></a>
+        <figcaption>Black Friday CDL: equipe e arco de balões</figcaption>
+      </figure>
+      <figure class="gal-item">
+        <a href="fotos/F5.jpeg" target="_blank" rel="noopener"><img src="fotos/F5.jpeg" alt="Equipe da CDL com camisas da Black Friday e a placa da CDL João Câmara" loading="lazy" width="640" height="480"></a>
+        <figcaption>Equipe com as camisas da campanha</figcaption>
+      </figure>
+      <figure class="gal-item">
+        <a href="fotos/F6.jpeg" target="_blank" rel="noopener"><img src="fotos/F6.jpeg" alt="Equipe da CDL em visita a uma loja de tintas" loading="lazy" width="640" height="480"></a>
+        <figcaption>Visita a uma loja de tintas</figcaption>
+      </figure>
+      <figure class="gal-item">
+        <a href="fotos/F7.jpeg" target="_blank" rel="noopener"><img src="fotos/F7.jpeg" alt="Equipe da CDL reunida em roda de conversa durante a ação" loading="lazy" width="640" height="480"></a>
+        <figcaption>Conversa da equipe durante a ação</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -529,7 +578,7 @@
       </div>
       <div class="news-item">
         <span class="date">10 nov</span>
-        <div><span class="tag">Ação de rua</span><h3>Intervenção de rua no coreto da Praça Baixa Verde, das 8h às 17h</h3></div>
+        <div><span class="tag">Ação de rua</span><h3>Intervenção de rua no corredor da Praça Baixa Verde, das 8h às 17h</h3></div>
         
       </div>
       <div class="news-item">
